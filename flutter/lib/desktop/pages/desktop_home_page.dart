@@ -87,7 +87,22 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         ),
       Align(
         alignment: Alignment.center,
-        child: loadLogo(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/fantyzo-remote-support.png',
+              width: 48,
+              height: 48,
+            ),
+            const SizedBox(height: 6),
+            Text(
+              'Fantyzo Remote Support',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ],
+        ),
       ),
       buildTip(context),
       if (!isOutgoingOnly) buildIDBoard(context),

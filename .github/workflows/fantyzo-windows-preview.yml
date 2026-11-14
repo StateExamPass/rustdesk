@@ -5,6 +5,8 @@ on:
     branches: [fantyzo-windows-preview]
     paths:
       - '.github/workflows/fantyzo-windows-preview.yml'
+      - 'flutter/lib/desktop/pages/desktop_home_page.dart'
+      - 'flutter/lib/desktop/pages/desktop_setting_page.dart'
   workflow_dispatch:
 
 permissions:

@@ -20,6 +20,7 @@ import 'package:flutter_hbb/models/printer_model.dart';
 import 'package:flutter_hbb/models/server_model.dart';
 import 'package:flutter_hbb/models/shortcut_model.dart';
 import 'package:flutter_hbb/models/state_model.dart';
+import 'package:flutter_hbb/utils/multi_window_manager.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -416,6 +417,10 @@ class _GeneralState extends State<_General> {
       controller: scrollController,
       children: [
         if (!isWeb) service(),
+        if (isWindows &&
+            !bind.isDisableInstallation() &&
+            !bind.mainIsInstalled())
+          windowsInstallation(),
         theme(),
         _Card(title: 'Language', children: [language()]),
         if (!isWeb) hwcodec(),
@@ -426,6 +431,22 @@ class _GeneralState extends State<_General> {
         if (!bind.isIncomingOnly()) keyboardShortcuts(),
       ],
     ).marginOnly(bottom: _kListViewBottomMargin);
+  }
+
+  Widget windowsInstallation() {
+    return _Card(title: 'Installation', children: [
+      if (!bind.isOutgoingOnly()) Text(translate('install_tip')),
+      Align(
+        alignment: Alignment.centerLeft,
+        child: TextButton(
+          onPressed: () async {
+            await rustDeskWinManager.closeAllSubWindows();
+            bind.mainGotoInstall();
+          },
+          child: Text(translate('Install')),
+        ),
+      ),
+    ]);
   }
 
   Widget keyboardShortcuts() {

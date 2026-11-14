@@ -2595,15 +2595,48 @@ class _AboutState extends State<_About> {
       final scrollController = ScrollController();
       return SingleChildScrollView(
         controller: scrollController,
-        child: _Card(title: translate('About RustDesk'), children: [
+        child: _Card(title: 'About Fantyzo Remote Support', children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 8.0,
+              Row(
+                children: [
+                  Image.asset(
+                    'assets/fantyzo-remote-support.png',
+                    width: 48,
+                    height: 48,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      'Fantyzo Remote Support',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              const Text('Based on the open-source RustDesk client.'),
+              Wrap(
+                spacing: 8,
+                children: [
+                  TextButton(
+                    onPressed: () => launchUrlString(
+                      'https://github.com/StateExamPass/rustdesk/tree/'
+                      'fantyzo-remote-support-branding',
+                    ),
+                    child: const Text('Source Code'),
+                  ),
+                  TextButton(
+                    onPressed: () => launchUrlString(
+                      'https://www.gnu.org/licenses/agpl-3.0.en.html',
+                    ),
+                    child: const Text('License (AGPLv3)'),
+                  ),
+                ],
               ),
               SelectionArea(
-                  child: Text('${translate('Version')}: $version')
+                  child: Text('RustDesk ${translate('Version')}: $version')
                       .marginSymmetric(vertical: 4.0)),
               SelectionArea(
                   child: Text('${translate('Build Date')}: $buildDate')
